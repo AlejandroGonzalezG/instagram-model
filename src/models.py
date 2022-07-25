@@ -15,19 +15,13 @@ class Person(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Users(Base):
+    __tablename__='Users'
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
-
-    def to_dict(self):
-        return {}
+    email = Column(String(80), nullable=False)
+    password = Column(String(80), nullable=False)
+    name = Column(String(80))
+    lastname = Column(String(80))
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
