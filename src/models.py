@@ -20,21 +20,25 @@ class Comment(Base):
     __tablename__='comments'
     id = Column(Integer, primary_key=True)
     comment_text = Column(String(500))
-    autor_id = Column(Integer)		
-    post_id = Column(Integer)		
+    author_id = Column(Integer, ForeignKey("users.id"))		
+    post_id = Column(Integer, ForeignKey("posts.id"))		
 
 class Post(Base):
     __tablename__='posts'
     id = Column(Integer, primary_key=True)
-    user_id = Column(String(80))		
+    user_id = Column(Integer, ForeignKey("users.id"))		
 
 class Media(Base):
     __tablename__='medias'
     id = Column(Integer, primary_key=True)
     type = Column(Integer)		
-    url = Column(Integer)		
-    post_id = Column(Text(500))		
+    url = Column(String(80))		
+    post_id = Column(Integer, ForeignKey("posts.id"))		
 
+class Follower(Base):
+    __tablename__='followers'
+    user_from_id = Column(Integer, ForeignKey("users.id"), primary_key=True)
+    user_to_id = Column(Integer, ForeignKey("users.id"), primary_key=True)
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
